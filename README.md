@@ -144,7 +144,7 @@ aws-cost --slack-token <SLACK_TOKEN> --slack-channel <CHANNEL_ID>
 
 Sends the cost report directly to a Slack channel.
 
-![Slack Report](./images/slack-report.png)
+![Slack Report](./images/first_report.png)
 
 ### 8. Help and Version Info
 
@@ -157,7 +157,16 @@ aws-cost --version     # Displays CLI version
 
 ## Slack Configuration
 
-### Step 1: Create a Slack App
+### Step 1: Create a Slack Channel
+
+1. Open your Slack workspace
+2. Click **+** next to Channels
+3. Select **Create a new channel**
+4. Enter Channel Name: `aws-cost-report`
+5. Choose **Public** or **Private** based on your preference
+6. Click **Create**
+
+### Step 2: Create a Slack App
 
 1. Go to: [Slack API: Create App](https://api.slack.com/apps)
 2. Click **Create New App**
@@ -165,9 +174,11 @@ aws-cost --version     # Displays CLI version
 4. Enter App Name: `AWS Cost Notifier`
 5. Select your Slack workspace
 
-### Step 2: Set Slack App Permissions
+![Slack App Creation](./images/slack_app_creation.png)
 
-1. In your app dashboard, go to **OAuth & Permissions**
+### Step 3: Set Slack App Permissions
+
+1. In your Slack app dashboard, go to **OAuth & Permissions**
 2. Scroll to **Scopes**
 3. Under **Bot Token Scopes**, add the following:
 
@@ -179,7 +190,7 @@ aws-cost --version     # Displays CLI version
 
 ![Slack Permissions](./images/slack-permissions.png)
 
-### Step 3: Install the App in Your Workspace
+### Step 4: Install the App in Your Workspace
 
 1. Still in **OAuth & Permissions**, click **Install App to Workspace**
 2. Approve the permissions
@@ -189,22 +200,22 @@ aws-cost --version     # Displays CLI version
 
 > ⚠️ **Important:** Keep your token secure! Never commit it to version control.
 
-### Step 4: Find Your Slack Channel ID
+### Step 5: Find Your Slack Channel ID
 
 1. Open Slack
-2. Go to the channel you want to post in
+2. Go to the `aws-cost-report` channel you created
 3. Click on the channel name at the top → **View channel details**
 4. Copy the **Channel ID** (starts with `C...`)
 
 ![Channel ID](./images/slack-channel-id.png)
 
-### Step 5: Test Slack Integration
+### Step 6: Test Slack Integration
 
 ```bash
 aws-cost --slack-token xoxb-your-token --slack-channel C08XXXXXXXX
 ```
 
-### Step 6: Invite the Bot to Your Channel
+### Step 7: Invite the Bot to Your Channel
 
 In your Slack channel, run:
 
@@ -275,6 +286,8 @@ aws-cost --text > cost-report.txt
 python3 upload_cost_report.py
 ```
 
+![Python Slack Report](./images/slack-report.png)
+
 ---
 
 ## Docker Usage
@@ -312,39 +325,6 @@ docker run -e AWS_ACCESS_KEY_ID=<key> \
 | `Invalid credentials` | Check your AWS credentials or profile configuration |
 | `Slack posting failed` | Verify token permissions and channel ID |
 | `Bot not in channel` | Run `/invite @AWS-Cost-Notifier` in the channel |
-
----
-
-## Project Structure
-
-```
-AWS-COST-OPTIMISATION-USING-AWS-COST-CLI/
-├── README.md
-├── images/
-│   ├── aws-cost.png
-│   ├── aws-cost --summary.png
-│   ├── aws-cost --text.png
-│   ├── Node_js_download_place.png
-│   ├── slack-channel-id.png
-│   ├── slack-oauth-token.png
-│   ├── slack-permissions.png
-│   └── slack-report.png
-├── upload_cost_report.py
-├── Dockerfile
-└── cost-report.txt
-```
-
----
-
-## Contributing
-
-Feel free to submit issues and pull requests!
-
----
-
-## License
-
-MIT License
 
 ---
 
